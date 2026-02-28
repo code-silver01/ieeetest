@@ -17,34 +17,95 @@ add on
 
 
 <h1>Task 2</h1>
-This project features a fully integrated Node.js & Express REST API that manages the IEEE RITB Team Section dynamically. The React frontend automatically fetches, sorts, and renders the club members directly from the backend, completely eliminating static frontend data.
 
-How It Works
-GET /members: The React app calls this endpoint on page load. The backend automatically sorts all members by their hierarchyLevel (ensuring Chairpersons and leadership elegantly appear first in the grid) and serves them to the UI.
-POST /members: Adds a new member to the database with strict integrity validation (e.g., USNs must be uniquely distinct and exactly 10 alphanumeric characters long).
-DELETE /members/:usn: Securely removes a specific member from the UI based on their USN.
-Running the Full-Stack System Locally
-To experience the real-time database updates, you need to run both the frontend and backend servers simultaneously.
 
-1. Start the Backend API: Open a terminal, navigate to the backend folder, and start the Express server (runs on port 3000):
+This project implements a **Node.js + Express REST API** integrated with a **React frontend** to dynamically manage IEEE RITB team members.
 
-bash
+The frontend **fetches and renders members directly from the backend**, eliminating static data.
+
+---
+
+## ⚙️ API Functionality
+
+### **GET /members**
+
+* Called automatically when the React app loads.
+* Backend sorts members using `hierarchyLevel`.
+* Leadership roles appear first in the UI grid.
+
+---
+
+### **POST /members**
+
+* Adds a new member.
+* Validation enforced:
+
+  * USN must be **unique**
+  * Exactly **10 alphanumeric characters**
+
+---
+
+### **DELETE /members/:usn**
+
+* Removes a member securely using their USN.
+
+---
+
+## 🖥️ Running the Full-Stack System Locally
+
+Both backend and frontend servers must run simultaneously.
+
+---
+
+### ✅ 1. Start Backend API (Port 3000)
+
+```bash
 cd backend
 node index.js
-2. Start the Frontend App: Open a second terminal in the project root directory and start the Vite development server:
+```
 
-bash
+---
+
+### ✅ 2. Start Frontend (Vite)
+
+```bash
 npm run dev
-⚡ Try the Live Update Magic
-While both servers are running and you have your React webpage open (http://localhost:5173), open a third terminal (PowerShell) and inject a new member into the database using this command:
+```
 
-powershell
+---
+
+## ⚡ Live Database Update Demo
+
+With both servers running and the frontend open:
+
+```
+http://localhost:5173
+```
+
+Open a **third terminal** and add a member dynamically.
+
+---
+
+### ▶ PowerShell (Windows)
+
+```powershell
 Invoke-RestMethod -Uri "http://localhost:3000/members" -Method Post -ContentType "application/json" -Body '{"name":"Demo User","usn":"1RV21CS999","chapter":"Web Development Team","role":"Frontend Developer","hierarchyLevel":4,"email":"demo@ieee.org","bio":"Just added via the REST API!"}'
-(If you are on Mac/Linux, use cURL instead):
+```
 
-bash
+---
+
+### ▶ Mac / Linux (cURL)
+
+```bash
 curl -X POST http://localhost:3000/members -H "Content-Type: application/json" -d '{"name":"Demo User","usn":"1RV21CS999","chapter":"Web Development Team","role":"Frontend Developer","hierarchyLevel":4,"email":"demo@ieee.org","bio":"Just added via the REST API!"}'
-The Result: Go to your browser and hit refresh. You will instantly see the new "Demo User" glassmorphic card seamlessly generated and inserted into the Team Section grid!
+```
+
+---
+
+## ✅ Result
+
+Refresh the browser and the newly added **Demo User** instantly appears as a dynamically generated **glassmorphic team card** in the grid.
+
 
 <h1>Task 3</h1>
 
